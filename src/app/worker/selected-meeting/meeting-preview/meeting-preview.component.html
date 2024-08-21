@@ -1,0 +1,34 @@
+<div class="company">
+  <span class="title">{{ meeting().company.name }}</span>
+  <img
+    *ngIf="meeting().company.pathToLogo"
+    src="{{ meeting().company.pathToLogo }}"
+    alt="{{ meeting().company.name }}-logo"
+    class="icon"
+  />
+</div>
+<div class="meeting-info">
+  <tui-line-clamp
+   class="operation-type"
+   [linesLimit]="2"
+   [content]="meeting().operationTypes.join(', ')"
+  ></tui-line-clamp>
+  <div class="meeting-point">
+    <span class="title">{{ meeting().meetingPoint.address }}</span>
+    <span class="coordinates">{{ meeting().meetingPoint.lat }}, {{ meeting().meetingPoint.lng }}</span>
+  </div>
+</div>
+<div class="date">
+  <tui-badge
+    [status]="m_dateBadgeStatus()"
+    size="l"
+    [value]="m_dateString()"
+  ></tui-badge>
+  <span class="time">
+    {{
+      meeting().timeRange.from.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: '2-digit' })
+    }} - {{
+      meeting().timeRange.to.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: '2-digit' })
+    }}
+  </span>
+</div>

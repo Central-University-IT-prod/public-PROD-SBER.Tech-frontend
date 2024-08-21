@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --tui-primary: #FFDD2D;
+  --tui-primary-hover: #FCC521;
+  --tui-primary-hover: #FAB619;
+  --tui-primary-text: var(--tui-text-01);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+body {
+  background-color: var(--tui-base-02) !important;
+}

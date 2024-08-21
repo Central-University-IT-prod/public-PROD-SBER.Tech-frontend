@@ -1,0 +1,28 @@
+<div class="head">
+  <tui-line-clamp
+   class="operation-type"
+   [linesLimit]="2"
+   [content]="meeting().operationTypes.join(', ')"
+  ></tui-line-clamp>
+</div>
+
+<div class="meeting-info">
+  <div class="date">
+    <tui-badge
+      [status]="m_dateBadgeStatus()"
+      size="l"
+      [value]="m_dateString()"
+    ></tui-badge>
+    <span class="time">
+      {{
+        meeting().timeRange.from.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: '2-digit' })
+      }} - {{
+        meeting().timeRange.to.toLocaleTimeString('ru-RU', { hour: 'numeric', minute: '2-digit' })
+      }}
+    </span>
+  </div>
+  <div class="meeting-point">
+    <span class="title">{{ meeting().meetingPoint.address }}</span>
+    <span class="coordinates">{{ meeting().meetingPoint.lat }}, {{ meeting().meetingPoint.lng }}</span>
+  </div>
+</div>

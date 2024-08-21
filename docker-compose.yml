@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build: .
+
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:0.0.0.0"
+    networks:
+      - server_network
+    ports:
+      - '4200:4200'
+
+networks:
+  server_network:
+    driver: bridge

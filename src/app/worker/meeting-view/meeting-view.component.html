@@ -1,0 +1,70 @@
+@if (m_meeting()) {
+<div class="header">
+  <tui-svg class="go-back" src="tuiIconArrowLeftCircleLarge" (click)="m_goBack()"></tui-svg>
+  <span class="title">Т.Юрист</span>
+</div>
+
+<div class="content">
+  <tui-scrollbar class="scrollbar-outlet">
+    <div class="card-list">
+      @if (m_meeting().company) {
+      <div class="client card">
+        <span class="name">{{ m_meeting().company.name }}</span>
+
+        <ul class="tui-list tui-list-large">
+          @for (person of m_meeting().participants; track $index) {
+          <li class="tui-list__item">{{
+            person.position
+            }} {{
+            person.name
+            }} {{
+            person.surname
+            }}</li>
+          }
+        </ul>
+      </div>
+      }
+
+      @if (m_meeting().timeRange) {
+      <div class="meeting card">
+        <span class="title">Место и время</span>
+        <span class="time">Сегодня с <span class="hour">{{
+            m_meeting().timeRange.from.toLocaleTimeString('ru-RU', {hour: 'numeric', minute: '2-digit'})
+            }}</span> до <span class="hour">{{
+            m_meeting().timeRange.to.toLocaleTimeString('ru-RU', {hour: 'numeric', minute: '2-digit'})
+            }}</span></span>
+        <div class="address">
+          <span class="text">По адресу {{ m_meeting().meetingPoint.address }}</span>
+          <span class="coordinates">({{
+            m_meeting().meetingPoint.lat
+            }}, {{
+            m_meeting().meetingPoint.lng
+            }})</span>
+        </div>
+      </div>
+      }
+
+      @if (m_meeting().operationTypes) {
+      <div class="operation-type card">
+        <tui-line-clamp class="operation-name" [linesLimit]="2"
+          [content]="m_meeting().operationTypes.join(', ')"></tui-line-clamp>
+        <span class="title">Документы</span>
+        <ul class="tui-list tui-list-large">
+          @for (document of m_meeting().documents; track $index) {
+          <li class="tui-list__item">{{ document }}</li>
+          }
+        </ul>
+      </div>
+      }
+    </div>
+  </tui-scrollbar>
+
+  @if (m_meeting().meetingPoint) {
+  <div class="map">
+    <ya-map [center]="[m_meeting().meetingPoint.lat, m_meeting().meetingPoint.lng]" [zoom]="17">
+      <ya-placemark [geometry]="[m_meeting().meetingPoint.lat, m_meeting().meetingPoint.lng]"></ya-placemark>
+    </ya-map>
+  </div>
+  }
+</div>
+}

@@ -1,0 +1,43 @@
+.head {
+  .operation-type {
+    font: var(--tui-font-text-m);
+    font-weight: bold;
+    color: var(--tui-text-01);
+  }
+}
+
+.meeting-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+  .date {
+    display: flex;
+
+    align-items: center;
+    flex-direction: row;
+
+    gap: 12px;
+
+    .time {
+      font: var(--tui-font-text-s);
+      color: var(--tui-text-01); 
+    }
+  }
+
+  .meeting-point {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font: var(--tui-font-text-s);
+      color: var(--tui-text-02);
+    }
+    .coordinates {
+      font: var(--tui-font-text-s);
+      color: var(--tui-text-03);
+    }
+  }
+}

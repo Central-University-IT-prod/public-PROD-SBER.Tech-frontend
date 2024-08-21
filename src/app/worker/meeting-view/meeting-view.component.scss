@@ -1,0 +1,163 @@
+@import '@taiga-ui/core/styles/taiga-ui-local';
+
+.header {
+  position: absolute;
+  display: flex;
+
+  flex-direction: row;
+
+  align-items: center;
+
+  top: 0;
+  left: 0;
+
+  height: 64px;
+  width: 100vw;
+
+  padding: 20px 32px;
+
+  .go-back {
+    cursor: pointer;
+  }
+
+  .title {
+    display: flex;
+
+    flex-grow: 1;
+
+    justify-content: center;
+
+    font: var(--tui-font-text-l);
+    font-weight: bold;
+  }
+}
+
+.content {
+  position: absolute;
+
+  top: 64px;
+  left: 0;
+
+  height: calc(100vh - 64px);
+  width: 100vw;
+
+  border-top: 1px solid var(--tui-base-03);
+
+  .scrollbar-outlet {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    height: calc(100vh - 64px);
+    width: 100vw;
+
+    border-top: 1px solid var(--tui-base-03);
+
+    height: calc(100vh - 64px);
+    width: calc((100vw - 64px - 48px) / 3);
+  }
+
+  .card-list {
+    position: absolute;
+    display: flex;
+
+    flex-direction: column;
+
+    top: 0;
+    left: 0;
+
+    gap: 24px;
+
+    padding: 32px 24px;
+
+    width: calc((100vw - 64px - 48px) / 3);
+
+    .card {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 12px;
+      
+      padding: 40px 32px;
+      
+      border-radius: 16px;
+      
+      background-color: var(--tui-base-01);
+      box-shadow: var(--tui-shadow);
+
+      &:hover {
+        box-shadow: var(--tui-shadow-hover);
+      }
+
+      &.client {
+        .name {
+          font: var(--tui-font-text-m);
+          font-weight: bold;
+          color: var(--tui-text-01);
+        }
+      }
+
+      &.meeting {
+        .title {
+          font: var(--tui-font-text-m);
+          font-weight: bold;
+          color: var(--tui-text-01);
+        }
+
+        .time {
+          font: var(--tui-font-text-l);
+          color: var(--tui-text-02);
+
+          .hour {
+            font: var(--tui-font-text-l);
+            color: var(--tui-text-01);
+          }
+        }
+
+        .address {
+          display: flex;
+          flex-direction: column;
+
+          .text {
+            font: var(--tui-font-text-l);
+            color: var(--tui-text-02);
+          }
+
+          .coordinates {
+            font: var(--tui-font-text-l);
+            color: var(--tui-text-03);
+          }
+        }
+      }
+
+      &.operation-type {
+        .operation-name {
+          font: var(--tui-font-text-m);
+          font-weight: bold;
+          color: var(--tui-text-01);
+        }
+
+        .title {
+          font: var(--tui-font-text-m);
+          font-weight: bold;
+          color: var(--tui-text-02);
+        }
+      }
+    }
+  }
+
+  .map {
+    position: absolute;
+    
+    top: 32px;
+    right: 32px;
+
+    height: calc(100vh - 128px);
+    width: calc((100vw - 64px - 48px) / 3 * 2 + 24px);
+
+    border-radius: 16px;
+  }
+}
+

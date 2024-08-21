@@ -1,0 +1,41 @@
+<div class="sidebar">
+  <div class="head">
+    <img src="../../../assets/logo.svg" alt="" class="icon">
+    <h1 class="title">.Юрист</h1>
+  </div>
+  <div class="content">
+    <span class="title">Ваши встречи</span>
+    <tui-tabs
+      vertical="right"
+    >
+      <a tuiTab href="/client/meetings/list">Список</a>
+      <a tuiTab href="/client/meetings/map">Карта</a>
+    </tui-tabs>
+  </div>
+</div>
+<main>
+  <div class="head">
+    <h1 class="title">Назначенные встречи</h1>
+  </div>
+  <div class="content">
+    <tui-scrollbar
+      class="scrollbar-outlet"
+    >
+      <div class="scrollbar-content">
+        @for (meeting of m_availableMeetings(); track $index) {
+          <app-meeting-preview
+            [meeting]="meeting"
+            class="card-content"
+            (click)="m_visitMeetingPage(meeting.id)"
+          ></app-meeting-preview>
+        }
+      </div>
+      <a href="/client/meetings/create">
+        <button
+          tuiButton
+          class="create-meeting"
+        >Назначить встречу</button>
+      </a>
+    </tui-scrollbar>
+  </div>
+</main>

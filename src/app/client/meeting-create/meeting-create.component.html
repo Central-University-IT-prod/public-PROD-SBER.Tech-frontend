@@ -1,0 +1,170 @@
+<div class="header">
+  <tui-svg
+    class="go-back"
+    src="tuiIconArrowLeftCircleLarge"
+    (click)="m_goBack()"
+  ></tui-svg>
+  <span class="title">Т.Юрист</span>
+  <tui-svg
+    class="delete"
+    src="tuiIconXCircleLarge"
+    (click)="m_deleteMeeting()"
+  ></tui-svg>
+</div>
+
+<div class="content">
+  <tui-scrollbar
+    class="scrollbar-outlet"
+  >
+    <div class="card-list">
+      <div class="client card">
+        <span class="name">Company</span>
+
+        @if (m_peopleList()) {
+          <ul class="tui-list tui-list-large">
+            @for (person of m_peopleList(); track $index) {
+              <li class="tui-list__item">{{ person.position }} {{ person.name }} {{ person.surname }}</li>
+            }
+          </ul>
+        }
+
+        <button
+          class="add-client"
+          tuiButton
+          size="m"
+          appearance="outline"
+          icon="tuiIconPlus"
+          (click)="m_showAddingClientDialog()"
+        >Добавить участника</button>
+      </div>
+
+      <div class="meeting card">
+        <span class="title">Место и время</span>
+        <tui-input-date
+          class="date-input"
+          tuiTextfieldSize="s"
+          [formControl]="m_dateFormControl"
+        >Дата</tui-input-date>
+
+        <tui-input-time
+          class="time-input"
+          tuiTextfieldSize="s"
+          [formControl]="m_timeFormControl"
+        >Время</tui-input-time>
+
+        <div class="address">
+          <tui-input
+            class="input"
+            tuiTextfieldSize="s"
+            [formControl]="m_addressFormControl"
+          >Адрес</tui-input>
+          <div class="coordinates">
+            <tui-input-number
+              class="latitude"
+              tuiTextfieldSize="s"
+              [formControl]="m_latitudeFormControl"
+              [precision]="6"
+            >Долгота</tui-input-number>
+            <tui-input-number
+              class="longitude"
+              tuiTextfieldSize="s"
+              [formControl]="m_longitudeFormControl"
+              [precision]="6"
+            >Широта</tui-input-number>
+          </div>
+        </div>
+      </div>
+
+      <div class="operation-type card">
+        <span class="title">Услуги</span>
+        @if (m_operationsList()) {
+          <ul class="tui-list tui-list-large">
+            @for (operation of m_operationsList(); track $index) {
+              <li class="tui-list__item">{{ operation }}</li>
+            }
+          </ul>
+        }
+        <button
+          class="add-operation"
+          tuiButton
+          size="m"
+          appearance="outline"
+          icon="tuiIconPlus"
+          (click)="m_showAddingOperationDialog()"
+        >Выбрать новую услугу</button>
+      </div>
+    </div>
+  </tui-scrollbar>
+
+  <button
+    class="create-meeting"
+    tuiButton
+    type="submit"
+    size="m"
+    appearance="primary"
+    (click)="m_createMeeting()"
+  >Создать встречу</button>
+  
+  <div class="map">
+    <ya-map [center]="[m_latitude(), m_longitude()]" [zoom]="13">
+      <ya-placemark [geometry]="[m_latitude(), m_longitude()]"></ya-placemark>
+    </ya-map>
+  </div>
+</div>
+
+<ng-template
+  [tuiDialogOptions]="{label: 'Добавление участника встречи', size: 'm'}"
+  [(tuiDialog)]="m_addingClientDialogOpen"
+>
+  <form
+    [formGroup]="m_addingClientDialogFormGroup"
+    (ngSubmit)="m_addClient()"
+    class="adding-client-form"
+  >
+    <tui-input
+      formControlName="clientName"
+      tuiTextfieldSize="m"
+    >Имя</tui-input>
+    <tui-input
+      formControlName="clientSurname"
+      tuiTextfieldSize="m"
+    >Фамилия</tui-input>
+    <tui-input
+      formControlName="clientRole"
+      tuiTextfieldSize="m"
+    >Роль</tui-input>
+    <button
+      class="add-client"
+      tuiButton
+      type="submit"
+      tuiMode="primary"
+      size="m"
+    >Добавить</button>
+  </form>
+</ng-template>
+
+<ng-template
+  [tuiDialogOptions]="{label: 'Добавление цели встречи', size: 'm'}"
+  [(tuiDialog)]="m_addingOperationDialogOpen"
+>
+  <form
+    [formGroup]="m_addingOperationDialogFormGroup"
+    (ngSubmit)="m_addOperation()"
+    class="adding-operation-form"
+  >
+    <tui-combo-box
+      formControlName="operationName"
+      tuiTextfieldSize="m"
+    >Название<input tuiTextfield /><tui-data-list-wrapper
+        *tuiDataList
+        [items]="m_availableOperationsList() | tuiFilterByInput"
+    ></tui-data-list-wrapper></tui-combo-box>
+    <button
+      class="add-operation" 
+      tuiButton
+      type="submit"
+      tuiMode="primary"
+      size="m"
+    >Добавить</button>
+  </form>
+</ng-template>

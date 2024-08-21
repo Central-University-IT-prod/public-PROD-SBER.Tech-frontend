@@ -1,0 +1,28 @@
+<div class="sidebar">
+  <div class="head">
+    <h1 class="title">Т.Юрист</h1>
+  </div>
+  <div class="content">
+    <span class="title">Ваши встречи</span>
+    <tui-tabs
+      vertical="right"
+    >
+      <a tuiTab href="/worker/meetings/list">Список</a>
+      <a tuiTab href="/worker/meetings/map">Карта</a>
+    </tui-tabs>
+  </div>
+</div>
+<main>
+  <div class="head">
+    <h1 class="title">Назначенные встречи</h1>
+  </div>
+  <div class="content">
+    @for (meeting of m_availableMeetings(); track $index) {
+      <app-meeting-preview
+        [meeting]="meeting"
+        class="card-content"
+        (click)="m_visitMeetingPage(meeting.id)"
+      ></app-meeting-preview>
+    }
+  </div>
+</main>
